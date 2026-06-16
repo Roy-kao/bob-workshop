@@ -145,6 +145,28 @@ public class AlertController {
     }
     
     @Operation(
+        summary = "查詢高風險警示",
+        description = "取得高風險和極高風險的警示記錄"
+    )
+    @ApiResponses(value = {
+        @ApiResponse(
+            responseCode = "200",
+            description = "成功取得高風險警示列表",
+            content = @Content(schema = @Schema(implementation = TransactionAlert.class))
+        )
+    })
+    @GetMapping("/high-risk")
+    public ResponseEntity<List<TransactionAlert>> getHighRiskAlerts() {
+        List<TransactionAlert> highAlerts = alertRepository.findBySeverity(AlertSeverity.HIGH);
+        List<TransactionAlert> criticalAlerts = alertRepository.findBySeverity(AlertSeverity.CRITICAL);
+        
+        List<TransactionAlert> allHighRisk = new java.util.ArrayList<>(criticalAlerts);
+        allHighRisk.addAll(highAlerts);
+        
+        return ResponseEntity.ok(allHighRisk);
+    }
+    
+    @Operation(
         summary = "取得警示統計",
         description = "取得警示的統計資料，包含總警示數、各嚴重程度數量等"
     )

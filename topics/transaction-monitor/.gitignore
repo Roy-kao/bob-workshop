@@ -32,3 +32,6 @@ Thumbs.db
 *.trace.db
 
 # Made with Bob
+
+
+*node_modules/

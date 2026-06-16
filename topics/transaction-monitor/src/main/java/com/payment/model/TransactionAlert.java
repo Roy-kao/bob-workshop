@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDateTime;
 
@@ -20,9 +21,10 @@ public class TransactionAlert {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonProperty("id")
     private Long alertId;
     
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "transaction_id", nullable = false)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Transaction transaction;
@@ -33,7 +35,12 @@ public class TransactionAlert {
     
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
+    @JsonProperty("riskLevel")
     private AlertSeverity severity;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
+    private AlertStatus status = AlertStatus.PENDING;
     
     @Column(nullable = false)
     private LocalDateTime detectedAt;
@@ -49,6 +56,9 @@ public class TransactionAlert {
         createdAt = LocalDateTime.now();
         if (detectedAt == null) {
             detectedAt = LocalDateTime.now();
+        }
+        if (status == null) {
+            status = AlertStatus.PENDING;
         }
     }
 }
