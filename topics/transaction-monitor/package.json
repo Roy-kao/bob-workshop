@@ -1,0 +1,28 @@
+{
+  "name": "transaction-monitor-tests",
+  "version": "1.0.0",
+  "description": "信用卡交易監控系統 - E2E 測試",
+  "scripts": {
+    "test": "playwright test",
+    "test:chromium": "playwright test --project=chromium",
+    "test:firefox": "playwright test --project=firefox",
+    "test:webkit": "playwright test --project=webkit",
+    "test:debug": "playwright test --debug",
+    "test:ui": "playwright test --ui",
+    "report": "playwright show-report",
+    "install:browsers": "playwright install"
+  },
+  "keywords": [
+    "playwright",
+    "e2e",
+    "testing"
+  ],
+  "author": "IBM Bob Workshop",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "@types/node": "^20.10.0",
+    "date-fns": "^3.0.0",
+    "typescript": "^5.3.0"
+  }
+}

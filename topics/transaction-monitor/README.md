@@ -108,15 +108,15 @@ payment-transaction-monitor/
 │       ├── index.html                      # ✅ Web UI
 │       ├── styles.css                      # ✅ 樣式
 │       └── app.js                          # ✅ JavaScript
-└── .bob/                                   # ❌ 待建立
-    ├── slash-commands/
-    │   └── analyze-security.md             # ❌ 待建立
-    ├── rules/
+└── .bob/                                   # ✅ Bob 配置目錄
+    ├── slash-commands/                     # ✅ Slash Commands
+    │   └── analyze-security.md             # ✅ 安全檢查指令
+    ├── rules/                              # ❌ 待建立
     │   ├── coding-standards.md             # ❌ 待建立
     │   └── security-rules.md               # ❌ 待建立
     ├── rules-code/                         # ❌ 待建立（Code Mode 專用規則）
     │   └── AGENTS.md                       # ❌ 待建立
-    └── skills/
+    └── skills/                             # ❌ 待建立
         └── frontend-slides/                # ❌ 待建立（簡報製作 SKILL 範例）
             └── SKILL.md                    # ❌ 待建立
 ```
@@ -432,6 +432,98 @@ Person D (簡報) ← 依賴全員成果
 - ✅ 使用 Prepared Statement 防止 SQL Injection
 - ✅ 記錄審計日誌
 - ✅ 適當的錯誤處理
+
+## 🔧 Slash Commands 使用指南
+
+### 什麼是 Slash Command?
+
+Slash Command 是 IBM Bob 的自訂指令功能,讓你可以建立專案特定的快捷指令。
+
+### 可用指令
+
+#### `/analyze-security` - 安全檢查
+
+執行完整的安全規範檢查:
+
+```
+/analyze-security
+```
+
+**檢查項目**:
+- ✅ 卡號遮罩實作
+- ✅ BigDecimal 金額處理
+- ✅ SQL 注入防護
+- ✅ 日誌安全
+
+**使用範例**:
+```
+# 檢查整個專案
+/analyze-security
+
+# 檢查特定檔案
+/analyze-security src/main/java/com/payment/model/Card.java
+
+# 檢查特定目錄
+/analyze-security src/main/java/com/payment/controller
+```
+
+#### `/test-runner` - 測試執行與錯誤分析
+
+執行完整的端對端測試並產生錯誤分析報告:
+
+```
+/test-runner
+```
+
+**測試套件**:
+- ✅ 交易測試 (transaction.spec.ts)
+- ✅ 警示測試 (alert.spec.ts)
+- ✅ 統計測試 (statistics.spec.ts)
+
+**分析項目**:
+- 🔍 失敗測試統計
+- 🔍 錯誤類型分類
+- 🔍 截圖與影片證據
+- 🔍 修正建議
+
+**使用範例**:
+```
+# 執行完整測試
+/test-runner
+
+# 執行特定測試套件
+/test-runner transaction
+/test-runner alert
+
+# 除錯模式
+/test-runner --debug
+```
+
+### 建立自己的 Slash Command
+
+詳細指南請參考: [slash-commands-guide.md](slash-commands-guide.md)
+
+**快速開始**:
+1. 在 `.bob/slash-commands/` 建立 Markdown 檔案
+2. 定義指令的功能和執行步驟
+3. 在 Bob 中使用 `/指令名稱` 執行
+
+**範例結構**:
+```markdown
+# /my-command
+
+> 指令描述
+
+## 功能說明
+說明這個指令的用途
+
+## 執行步驟
+1. 步驟一
+2. 步驟二
+
+## 使用範例
+/my-command [參數]
+```
 
 ## 📚 參考資源
 

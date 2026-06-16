@@ -412,4 +412,55 @@ footer p {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 12px;
   color: #6366f1;
+
+/* ==================== 警示風險等級樣式 ==================== */
+
+/* 風險等級徽章 */
+.risk-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+/* 高風險 - 紅色 */
+.risk-high {
+  background: rgba(255, 85, 85, 0.2);
+  color: #cc0000;
+  border: 1px solid rgba(255, 85, 85, 0.4);
+}
+
+/* 中風險 - 橘色 */
+.risk-medium {
+  background: rgba(255, 140, 0, 0.2);
+  color: #cc7000;
+  border: 1px solid rgba(255, 140, 0, 0.4);
+}
+
+/* 低風險 - 黃色 */
+.risk-low {
+  background: rgba(255, 193, 7, 0.2);
+  color: #cc9a00;
+  border: 1px solid rgba(255, 193, 7, 0.4);
+}
+
+/* 警示狀態樣式 */
+.status-INVESTIGATING {
+  background: rgba(0, 102, 204, 0.2);
+  color: #0066cc;
+}
+
+.status-RESOLVED {
+  background: rgba(80, 250, 123, 0.2);
+  color: #2d7a4d;
+}
+
+.status-FALSE_POSITIVE {
+  background: rgba(108, 117, 125, 0.2);
+  color: #495057;
+}
+
+/* Made with Bob */
 }

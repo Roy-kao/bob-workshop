@@ -24,7 +24,7 @@
         <div class="stat-icon">📊</div>
         <div class="stat-content">
           <div class="stat-label">總交易數</div>
-          <div class="stat-value" id="totalTransactions">-</div>
+          <div class="stat-value" id="totalTransactions" data-testid="stats-value-total-transactions">-</div>
         </div>
       </div>
       
@@ -32,7 +32,7 @@
         <div class="stat-icon">💰</div>
         <div class="stat-content">
           <div class="stat-label">總交易金額</div>
-          <div class="stat-value" id="totalAmount">-</div>
+          <div class="stat-value" id="totalAmount" data-testid="stats-value-total-amount">-</div>
         </div>
       </div>
       
@@ -40,7 +40,7 @@
         <div class="stat-icon">✅</div>
         <div class="stat-content">
           <div class="stat-label">已核准交易</div>
-          <div class="stat-value" id="approvedCount">-</div>
+          <div class="stat-value" id="approvedCount" data-testid="stats-value-approved-count">-</div>
         </div>
       </div>
       
@@ -48,7 +48,7 @@
         <div class="stat-icon">📈</div>
         <div class="stat-content">
           <div class="stat-label">平均交易金額</div>
-          <div class="stat-value" id="averageAmount">-</div>
+          <div class="stat-value" id="averageAmount" data-testid="stats-value-average-amount">-</div>
         </div>
       </div>
     </div>
@@ -58,19 +58,19 @@
       <h2>🔍 交易查詢</h2>
       
       <div class="filter-bar">
-        <button class="filter-btn active" onclick="loadAllTransactions()">
+        <button class="filter-btn active" onclick="loadAllTransactions()" data-testid="transaction-filter-all">
           全部交易
         </button>
-        <button class="filter-btn" onclick="loadRecentTransactions()">
+        <button class="filter-btn" onclick="loadRecentTransactions()" data-testid="transaction-filter-recent">
           最近24小時
         </button>
-        <button class="filter-btn" onclick="loadHighAmountTransactions()">
+        <button class="filter-btn" onclick="loadHighAmountTransactions()" data-testid="transaction-filter-high-amount">
           高額交易 (>50,000)
         </button>
       </div>
 
       <div class="table-container">
-        <table id="transactionsTable">
+        <table id="transactionsTable" data-testid="transaction-table">
           <thead>
             <tr>
               <th>交易ID</th>
@@ -82,13 +82,52 @@
               <th>交易時間</th>
             </tr>
           </thead>
-          <tbody id="transactionsBody">
+          <tbody id="transactionsBody" data-testid="transaction-table-body">
             <tr>
               <td colspan="7" class="loading">載入中...</td>
             </tr>
           </tbody>
         </table>
       </div>
+
+    <!-- 警示列表區塊 -->
+    <div class="section">
+      <h2>🚨 異常警示</h2>
+      
+      <div class="filter-bar">
+        <button class="filter-btn active" onclick="loadAllAlerts()" data-testid="alert-filter-all">
+          全部警示
+        </button>
+        <button class="filter-btn" onclick="loadHighRiskAlerts()" data-testid="alert-filter-high-risk">
+          高風險警示
+        </button>
+        <button class="filter-btn" onclick="loadPendingAlerts()" data-testid="alert-filter-pending">
+          待處理警示
+        </button>
+      </div>
+
+      <div class="table-container">
+        <table id="alertsTable" data-testid="alert-table">
+          <thead>
+            <tr>
+              <th>警示ID</th>
+              <th>警示類型</th>
+              <th>風險等級</th>
+              <th>交易ID</th>
+              <th>卡號</th>
+              <th>金額</th>
+              <th>狀態</th>
+              <th>偵測時間</th>
+            </tr>
+          </thead>
+          <tbody id="alertsBody" data-testid="alert-table-body">
+            <tr>
+              <td colspan="8" class="loading">載入中...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
     </div>
 
     <!-- 交易資料 API 列表 -->
