@@ -1,6 +1,7 @@
 package com.payment.service;
 
 import com.payment.model.Transaction;
+import com.payment.model.TransactionAlert;
 import com.payment.model.TransactionStatus;
 import com.payment.repository.TransactionRepository;
 import lombok.NonNull;
@@ -23,15 +24,32 @@ import java.util.List;
 public class TransactionService {
     
     private final TransactionRepository transactionRepository;
+    private final AlertDetectionService alertDetectionService;
     
     /**
      * 建立新交易
+     * 自動觸發警示偵測
      */
     public Transaction createTransaction(Transaction transaction) {
-        log.info("建立新交易: 卡號={}, 金額={}", 
-            transaction.getCard().getMaskedCardNumber(), 
+        log.info("建立新交易: 卡號={}, 金額={}",
+            transaction.getCard().getMaskedCardNumber(),
             transaction.getAmount());
-        return transactionRepository.save(transaction);
+        
+        // 儲存交易
+        Transaction savedTransaction = transactionRepository.save(transaction);
+        
+        // 自動執行警示偵測
+        try {
+            List<TransactionAlert> alerts = alertDetectionService.detectAllAlerts(savedTransaction);
+            if (!alerts.isEmpty()) {
+                log.warn("交易 {} 觸發了 {} 個警示", savedTransaction.getId(), alerts.size());
+            }
+        } catch (Exception e) {
+            log.error("警示偵測失敗: 交易ID={}", savedTransaction.getId(), e);
+            // 不影響交易建立，只記錄錯誤
+        }
+        
+        return savedTransaction;
     }
     
     /**
